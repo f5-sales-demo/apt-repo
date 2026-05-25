@@ -1,52 +1,29 @@
-# xcsh APT Repository
+# Apt Repo
 
-Debian/Ubuntu package repository for [xcsh](https://github.com/f5xc-salesdemos/xcsh) and [oh-my-xcsh](https://github.com/f5xc-salesdemos/oh-my-xcsh).
+[![GitHub Pages Deploy](https://github.com/f5xc-salesdemos/apt-repo/actions/workflows/github-pages-deploy.yml/badge.svg)](https://github.com/f5xc-salesdemos/apt-repo/actions/workflows/github-pages-deploy.yml)
+[![Repository Settings](https://github.com/f5xc-salesdemos/apt-repo/actions/workflows/enforce-repo-settings.yml/badge.svg)](https://github.com/f5xc-salesdemos/apt-repo/actions/workflows/enforce-repo-settings.yml)
+[![License](https://img.shields.io/github/license/f5xc-salesdemos/apt-repo)](LICENSE)
 
-## Packages
+APT package repository for xcsh
 
-| Package | Description |
-|---------|-------------|
-| `xcsh` | AI coding agent for the terminal |
-| `oh-my-xcsh` | Batteries-included xcsh plugin with multi-model orchestration |
+## Documentation
 
-Installing `xcsh` automatically installs `oh-my-xcsh` as a dependency.
+Full documentation is available at **[https://f5xc-salesdemos.github.io/apt-repo/](https://f5xc-salesdemos.github.io/apt-repo/)**.
 
-## Install
-
-```bash
-# Add the GPG signing key
-curl -fsSL https://f5xc-salesdemos.github.io/apt-repo/gpg.key \
-  | sudo gpg --dearmor -o /usr/share/keyrings/xcsh-archive-keyring.gpg
-
-# Add the repository
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/xcsh-archive-keyring.gpg] https://f5xc-salesdemos.github.io/apt-repo stable main" \
-  | sudo tee /etc/apt/sources.list.d/xcsh.list > /dev/null
-
-# Install
-sudo apt update
-sudo apt install xcsh
-```
-
-## Upgrade
+## Getting Started
 
 ```bash
-sudo apt update
-sudo apt upgrade xcsh
+git clone https://github.com/f5xc-salesdemos/apt-repo.git
 ```
 
-## Uninstall
+See the [documentation](https://f5xc-salesdemos.github.io/apt-repo/) for detailed setup
+and usage guides.
 
-```bash
-sudo apt remove xcsh oh-my-xcsh
-sudo rm /etc/apt/sources.list.d/xcsh.list
-sudo rm /usr/share/keyrings/xcsh-archive-keyring.gpg
-```
+## Contributing
 
-## Supported Architectures
+See [CONTRIBUTING.md](CONTRIBUTING.md) for workflow rules,
+branch naming, and CI requirements.
 
-- `amd64` (x86_64)
-- `arm64` (aarch64)
+## License
 
-## How It Works
-
-This repository is hosted on GitHub Pages and updated automatically when new releases are published. Only the latest version of each package is kept. For older versions, download from GitHub Releases directly.
+See [LICENSE](LICENSE).
