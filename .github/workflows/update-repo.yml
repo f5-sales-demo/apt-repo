@@ -59,7 +59,7 @@ jobs:
           TAG: ${{ steps.vars.outputs.tag }}
         run: |
           mkdir -p assets
-          repo="f5xc-salesdemos/${PACKAGE}"
+          repo="f5-sales-demo/${PACKAGE}"
 
           if [ "$PACKAGE" = "xcsh" ]; then
             gh release download "$TAG" --repo "$repo" \
