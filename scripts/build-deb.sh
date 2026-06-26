@@ -38,7 +38,7 @@ Installed-Size: ${BINARY_SIZE_KB}
 Depends: oh-my-xcsh
 Section: utils
 Priority: optional
-Homepage: https://github.com/f5xc-salesdemos/xcsh
+Homepage: https://github.com/f5-sales-demo/xcsh
 Description: AI coding agent for the terminal
  xcsh is an AI-powered coding agent built for the terminal.
  Multi-model AI support, TUI, LSP integration, and plugin system.
@@ -53,7 +53,7 @@ Maintainer: F5 XC Sales Demos <noreply@github.com>
 Installed-Size: ${BINARY_SIZE_KB}
 Section: utils
 Priority: optional
-Homepage: https://github.com/f5xc-salesdemos/oh-my-xcsh
+Homepage: https://github.com/f5-sales-demo/oh-my-xcsh
 Description: Batteries-included xcsh plugin with multi-model orchestration
  oh-my-xcsh is an xcsh plugin providing multi-model agent orchestration,
  parallel background agents, and LSP/AST tools.

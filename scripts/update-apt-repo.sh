@@ -15,7 +15,7 @@ done
 
 # Generate Release file
 apt-ftparchive \
-  -o APT::FTPArchive::Release::Origin="f5xc-salesdemos" \
+  -o APT::FTPArchive::Release::Origin="f5-sales-demo" \
   -o APT::FTPArchive::Release::Label="xcsh" \
   -o APT::FTPArchive::Release::Suite="stable" \
   -o APT::FTPArchive::Release::Codename="stable" \
