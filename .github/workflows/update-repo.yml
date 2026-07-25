@@ -38,19 +38,43 @@ jobs:
 
       - name: Set variables
         id: vars
+        env:
+          # On repository_dispatch every client_payload field is supplied by the
+          # caller, so interpolating these into the run body let them expand into
+          # executable shell before bash parsed the script. workflow_dispatch inputs
+          # are free text too. All of them come in as env and are read as quoted
+          # shell variables, which keeps them inert data.
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          PAYLOAD_VERSION: ${{ github.event.client_payload.version }}
+          PAYLOAD_TAG: ${{ github.event.client_payload.tag }}
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_TAG: ${{ inputs.tag }}
+          INPUT_PACKAGE: ${{ inputs.package }}
         run: |
-          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
-            echo "version=${{ github.event.client_payload.version }}" >> "$GITHUB_OUTPUT"
-            echo "tag=${{ github.event.client_payload.tag }}" >> "$GITHUB_OUTPUT"
-            case "${{ github.event.action }}" in
-              xcsh-release) echo "package=xcsh" >> "$GITHUB_OUTPUT" ;;
-              oh-my-xcsh-release) echo "package=oh-my-xcsh" >> "$GITHUB_OUTPUT" ;;
+          if [ "$EVENT_NAME" = "repository_dispatch" ]; then
+            version="$PAYLOAD_VERSION"
+            tag="$PAYLOAD_TAG"
+            case "$EVENT_ACTION" in
+              xcsh-release) package="xcsh" ;;
+              oh-my-xcsh-release) package="oh-my-xcsh" ;;
+              *)
+                echo "::error::unrecognised dispatch type '${EVENT_ACTION}'"
+                exit 1
+                ;;
             esac
           else
-            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
-            echo "tag=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
-            echo "package=${{ inputs.package }}" >> "$GITHUB_OUTPUT"
+            version="$INPUT_VERSION"
+            tag="$INPUT_TAG"
+            package="$INPUT_PACKAGE"
           fi
+
+          # One grouped redirect rather than six (shellcheck SC2129).
+          {
+            echo "version=${version}"
+            echo "tag=${tag}"
+            echo "package=${package}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Download release assets
         env:
