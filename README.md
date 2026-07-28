@@ -20,7 +20,6 @@
 
 APT package repository for xcsh
 
-
 ## Documentation
 
 Full documentation is available at **[https://f5-sales-demo.github.io/apt-repo/](https://f5-sales-demo.github.io/apt-repo/)**.
