@@ -25,16 +25,19 @@ permissions:
 
 jobs:
   update-repo:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, apt-repo, ubuntu-24.04]
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Checkout gh-pages
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: gh-pages
           path: gh-pages
+          persist-credentials: false
 
       - name: Set variables
         id: vars
@@ -144,6 +147,7 @@ jobs:
       - name: Commit and push to gh-pages
         working-directory: gh-pages
         env:
+          GH_TOKEN: ${{ github.token }}
           PACKAGE: ${{ steps.vars.outputs.package }}
           TAG: ${{ steps.vars.outputs.tag }}
         run: |
@@ -152,4 +156,5 @@ jobs:
           git add -A
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "Update ${PACKAGE} to ${TAG}"
+          gh auth setup-git
           git push
