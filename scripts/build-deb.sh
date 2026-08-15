@@ -33,7 +33,7 @@ if [ "$PACKAGE" = "xcsh" ]; then
 Package: xcsh
 Version: ${VERSION}
 Architecture: ${ARCH}
-Maintainer: F5 XC Sales Demos <noreply@github.com>
+Maintainer: F5 XC Sales Demos <noreply@users.noreply.github.com>
 Installed-Size: ${BINARY_SIZE_KB}
 Depends: oh-my-xcsh
 Section: utils
@@ -49,7 +49,7 @@ elif [ "$PACKAGE" = "oh-my-xcsh" ]; then
 Package: oh-my-xcsh
 Version: ${VERSION}
 Architecture: ${ARCH}
-Maintainer: F5 XC Sales Demos <noreply@github.com>
+Maintainer: F5 XC Sales Demos <noreply@users.noreply.github.com>
 Installed-Size: ${BINARY_SIZE_KB}
 Section: utils
 Priority: optional

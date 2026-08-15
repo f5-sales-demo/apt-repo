@@ -100,9 +100,6 @@ jobs:
               --dir ./assets
           fi
 
-      - name: Install packaging tools
-        run: sudo apt-get update && sudo apt-get install -y dpkg-dev apt-utils
-
       - name: Build .deb packages
         env:
           PACKAGE: ${{ steps.vars.outputs.package }}
