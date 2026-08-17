@@ -29,7 +29,7 @@ BINARY_SIZE_KB=$(du -sk "$PKG_DIR/usr/bin/$PACKAGE" | cut -f1)
 mkdir -p "$PKG_DIR/DEBIAN"
 
 if [ "$PACKAGE" = "xcsh" ]; then
-  cat > "$PKG_DIR/DEBIAN/control" << EOF
+  cat >"$PKG_DIR/DEBIAN/control" <<EOF
 Package: xcsh
 Version: ${VERSION}
 Architecture: ${ARCH}
@@ -45,7 +45,7 @@ Description: AI coding agent for the terminal
 EOF
 
 elif [ "$PACKAGE" = "oh-my-xcsh" ]; then
-  cat > "$PKG_DIR/DEBIAN/control" << EOF
+  cat >"$PKG_DIR/DEBIAN/control" <<EOF
 Package: oh-my-xcsh
 Version: ${VERSION}
 Architecture: ${ARCH}
