@@ -19,13 +19,20 @@ on:
         description: "Release tag (e.g., v1.3.13-f5xc.1)"
         required: true
 
+concurrency:
+  group: apt-repository-publish-${{ github.repository }}
+  cancel-in-progress: false
+
 permissions:
-  contents: write
-  pages: write
+  contents: read # default token scope for release asset downloads
 
 jobs:
   update-repo:
+    name: Publish APT repository
     runs-on: [self-hosted, Linux, X64, apt-repo, ubuntu-24.04]
+    environment: apt-repository-publish
+    permissions:
+      contents: write # commit the generated package repository to gh-pages
     steps:
       - name: Checkout main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -100,9 +107,6 @@ jobs:
               --dir ./assets
           fi
 
-      - name: Install packaging tools
-        run: sudo apt-get update && sudo apt-get install -y dpkg-dev apt-utils
-
       - name: Build .deb packages
         env:
           PACKAGE: ${{ steps.vars.outputs.package }}
@@ -119,7 +123,9 @@ jobs:
           fi
 
       - name: Import GPG key
-        run: echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        run: printf '%s' "$GPG_PRIVATE_KEY" | gpg --batch --import
 
       - name: Remove old packages for this package only
         env:
